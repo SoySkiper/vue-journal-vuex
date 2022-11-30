@@ -2,9 +2,9 @@
     <div class="entry-conteiner mb-3 pointer p-2" @click="$router.push({name: 'entry', params: { id: entry.id }})">
         <!-- Titulo -->
         <div class="netry-title d-flex">
-            <span class="text-success fs-5 fw-bold">{{day}}</span>
-            <span class="mx-1 fs-5">{{day}}</span>
-            <span class="mx-2 fw-light">2022, jueves</span>
+            <span class="text-success fs-5 fw-bold">{{ day }}</span>
+            <span class="mx-1 fs-5">{{ month }}</span>
+            <span class="mx-2 fw-light">{{ yearDay }}</span>
         </div>
 
         <div class="entry-description">
@@ -38,6 +38,10 @@ export default{
         month(){
             const date = new Date( this.entry.date )
             return months[ date.getMonth()]
+        },
+        yearDay(){
+            const date = new Date( this.entry.date )
+            return `${ date.getFullYear() }`, `${ days[ date.getDay() ]}`
         }
     }
 }
