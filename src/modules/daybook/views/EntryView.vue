@@ -8,10 +8,11 @@
             </div>
 
             <div>
-                <button class="btn btn-danger mx-2">
+                <button v-if="entry.id" class="btn btn-danger mx-2" @click="onDeleteEntry">
                     Borrar
                     <i class="fa fa-trash-alt"></i>
                 </button>
+
                 <button class="btn btn-primary">
                     Subir foto
                     <i class="fa fa-upload"></i>
@@ -28,14 +29,13 @@
 
     </template>
 
-    <Fab icon="fa-save" @on:click="saveEntry"/>
+    <Fab icon="fa-save" @on:click="saveEntry" />
 
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue';
-import { mapGetters } from 'vuex';
-
+import { mapGetters, mapActions } from 'vuex';
 import getDayMonthYear from "../helpers/getDayMonthYear";
 
 export default {
@@ -71,16 +71,41 @@ export default {
     },
 
     methods: {
+        ...mapActions('journal', ['updateEntry', 'createEntry', 'deleteEntry']),
         loadEntry() {
-            const entry = this.getEntryById(this.id)
-            if (!entry) return this.$router.push({ name: 'no-entry' })
+            let entry;
+
+            if (this.id === 'new') {
+                entry = {
+                    text: '',
+                    date: new Date().getTime()
+                }
+            } else {
+                entry = this.getEntryById(this.id)
+                if (!entry) return this.$router.push({ name: 'no-entry' })
+            }
 
             this.entry = entry
         },
-        async saveEntry(){
-            console.log('Salvando entrada')
-            console.log(this.entry)
-        }
+        async saveEntry() {
+            if (this.entry.id) {
+                // Actualizar 
+                await this.updateEntry(this.entry)
+            } else {
+                // Crear una nueva entrada
+                console.log('Post de una nueva entrada')
+                const id = await this.createEntry(this.entry)
+                this.$router.push({ name: 'entry', params: { id } })
+
+            }
+        },
+        async onDeleteEntry() {
+            console.log("delete", this.entry)
+            await this.deleteEntry(this.entry.id)
+            // redireccionar al usuario fuera de aqui
+            this.$router.push({ name: 'no-entry' })
+
+        },
     },
 
     created() {
