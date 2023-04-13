@@ -12,6 +12,7 @@
     "@uiball/loaders": "^1.2.6",
     "axios": "^1.2.0",
     "bootstrap": "^5.2.2",
+    "caniuse-lite": "^1.0.30001477",
     "core-js": "^3.8.3",
     "sweetalert2": "^11.7.0",
     "vue": "^3.2.13",
@@ -29,10 +30,12 @@
     "@vue/test-utils": "^2.0.0-0",
     "@vue/vue3-jest": "^27.0.0-alpha.1",
     "babel-jest": "^27.0.6",
+    "cloudinary": "^1.34.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "jest": "^27.0.5",
     "sass": "^1.55.0",
-    "sass-loader": "10"
+    "sass-loader": "10",
+    "setimmediate": "^1.0.5"
   }
 }
