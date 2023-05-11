@@ -31,4 +31,20 @@ describe('Vuex - Pruebas en el Journal Module', () => {
         expect( store.state.journal.entries.length ).toBe(2);
         expect( store.state.journal.isLoading ).toBeFalsy();
     });
+
+    test('mutation: updateEntry', () => {
+        const store = createVuexStore( journalState )
+        const updateEntry = {
+            id: "-NM-cOeka0Y5It_BaoAr",
+            date: 1673974025496,
+            text: "Hola mundo desde pruebas"
+        }
+
+        store.commit('journal/updateEntry', updateEntry)
+
+        const storeEntries = store.state.journal.entries;
+
+        expect( storeEntries.length ).toBe(2);        
+        expect( storeEntries.find( e => e.id === updateEntry.id ) ).toEqual( updateEntry );
+    });
 })
