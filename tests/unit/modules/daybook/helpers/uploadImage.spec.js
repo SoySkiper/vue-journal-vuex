@@ -11,6 +11,9 @@ cloudinary.config({
 })
 
 describe('Pruebas en el uploadImage', () => {
+
+    jest.setTimeout(7000);
+
     test('debe de cargar un archivo y retorna URL', async () => {
         const { data } = await axios.get('https://res.cloudinary.com/dvs0c3yjd/image/upload/v1673975966/cld-sample.jpg', {
             responseType: 'arraybuffer'
@@ -33,5 +36,5 @@ describe('Pruebas en el uploadImage', () => {
         // Nos aseguramos de que la imagen haya sido eliminada
         // para no crear archivos basura en cloudinary
         expect(deleted[imageId]).toBe('deleted')
-    })
+    })  
 })
