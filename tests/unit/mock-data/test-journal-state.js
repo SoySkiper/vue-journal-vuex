@@ -1,5 +1,4 @@
 
-
 export const journalState = {
     isLoading: false,
     entries: [
