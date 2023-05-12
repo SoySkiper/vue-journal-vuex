@@ -97,4 +97,27 @@ describe('Vuex - Pruebas en el Journal Module', () => {
 
         expect( store.state.journal.entries.length ).toBe(2);
     });
+
+    test('actions: updateEntry', async() => {
+        const store = createVuexStore( journalState )
+
+        const updateEntry = {
+            id: "-NM-cOeka0Y5It_BaoAr",
+            date: 1673974025496,
+            text: "Hola mundo desde mock data",
+            otroCampo: true,
+            otroMas: { a: 2 }
+        }
+        
+        await store.dispatch('journal/updateEntry', updateEntry)
+
+        expect( store.state.journal.entries.length ).toBe(2)
+        expect( 
+            store.state.journal.entries.find( e => e.id === updateEntry.id ) 
+        ).toEqual({
+            id: "-NM-cOeka0Y5It_BaoAr",
+            date: 1673974025496,
+            text: "Hola mundo desde mock data",
+        });
+    });
 })
