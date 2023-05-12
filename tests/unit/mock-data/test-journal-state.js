@@ -11,7 +11,7 @@ export const journalState = {
             id: "-NOclo-5q93c5opgJjKw",
             date: 1676795102432,
             picture: "https://res.cloudinary.com/dvs0c3yjd/image/upload/v1676795133/iag90nyqzgqdmlurmdf8.jpg",
-            text: "Fuimos a comprar mota para fumar en CU."
+            text: "la pomme est rouge"
         }
     ]
 }

@@ -12,7 +12,8 @@ const createVuexStore = ( initialState ) => createStore({
 })
 
 describe('Vuex - Pruebas en el Journal Module', () => {
-    // Básicas 
+
+    //=================== Básicas ===================
     test('este es el estado inicial, debe de tener este state ', () => {
         
         const store = createVuexStore( journalState )
@@ -22,7 +23,7 @@ describe('Vuex - Pruebas en el Journal Module', () => {
         expect( entries ).toEqual( journalState.entries );
     });
 
-    // Mutations
+    //=================== Mutations ===================
 
     test('mutation: setEntries', () => {
         const store = createVuexStore({ isLoading: true, entries: [] })
@@ -72,4 +73,18 @@ describe('Vuex - Pruebas en el Journal Module', () => {
         ).toBeFalsy();
     
     });
+
+    //=================== Getters ===================
+
+    test('getters: getEntriesByTerm, getEntryById', () => {
+       const store = createVuexStore( journalState )
+       const [entry1, entry2] = journalState.entries;
+
+       expect( store.getters['journal/getEntriesByTerm']('') ).toEqual( journalState.entries );
+       expect( store.getters['journal/getEntriesByTerm']('pomme').length ).toBe(1);
+
+       expect( store.getters['journal/getEntriesByTerm']('pomme') ).toEqual([ entry2 ]);
+       
+       expect( store.getters['journal/getEntryById']('-NM-cOeka0Y5It_BaoAr') ).toEqual( entry1 );
+    }); 
 })
