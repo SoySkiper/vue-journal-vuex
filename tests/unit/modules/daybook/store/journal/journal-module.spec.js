@@ -45,6 +45,31 @@ describe('Vuex - Pruebas en el Journal Module', () => {
         const storeEntries = store.state.journal.entries;
 
         expect( storeEntries.length ).toBe(2);        
-        expect( storeEntries.find( e => e.id === updateEntry.id ) ).toEqual( updateEntry );
+        expect( 
+            storeEntries.find( e => e.id === updateEntry.id )
+        ).toEqual( updateEntry );
+    })
+
+    test('mutation: addEntry deteleEntry', () => {
+        const store = createVuexStore( journalState )
+        const newEntry = {
+            id: "ABC-123",
+            text: "Hola mundo"
+        }
+
+        store.commit('journal/addEntry', newEntry)
+        const storeEntries = store.state.journal.entries;
+
+        expect( storeEntries.length ).toBe(3);        
+        expect( 
+            storeEntries.find( e => e.id === newEntry.id )
+        ).toEqual( newEntry );
+
+        store.commit('journal/deleteEntry', newEntry.id)
+        expect( store.state.journal.entries.length ).toBe(2);        
+        expect( 
+            store.state.journal.entries.find( e => e.id === newEntry.id )
+        ).toBeFalsy();
+    
     });
 })
