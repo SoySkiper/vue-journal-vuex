@@ -122,31 +122,16 @@ describe('Vuex - Pruebas en el Journal Module', () => {
     });
 
     test('actions: createEntry, deleteEntry', async() => {
-        //createStore
         const store = createVuexStore( journalState )
-        
         const newEntry = { date: 1673974025496, text: "Esta es una nueva entrada para las pruebas" }
-
-        //dispach  de la accion createEntry
+        
         await store.dispatch('journal/createEntry', newEntry)
-
-        //Obtener el id de la nueva entrada
-
         const newEntryId = store.state.journal.entries.find( e => e.text === newEntry.text ).id
         
-        // el ID debe de ser un string
         expect( typeof newEntryId ).toBe('string');
-
-
-        //la nueva entrada debe de existir en el state.journal.entries...
         expect( store.state.journal.entries.find( e => e.id === newEntryId ) ).toBeTruthy();
-
-        // #Segunda Parte
-
-        //dispach de la accion deleteEntry
+        
         await store.dispatch('journal/deleteEntry', newEntryId)
-
-        //la nueva entrada NO debe de existir en el state.journal.entries...
         expect( store.state.journal.entries.find( e => e.id === newEntryId ) ).toBeFalsy();
     });
 })
