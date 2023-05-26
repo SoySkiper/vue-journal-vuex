@@ -23,6 +23,8 @@ jest.mock('sweetalert2', () => ({
 describe('Pruebas en el EntryView', () =>{
 
     const store = createVuexStore( journalState )
+    store.dispatch = jest.fn()
+
     const mockRouter = {
         push: jest.fn()
     }
@@ -76,9 +78,10 @@ describe('Pruebas en el EntryView', () =>{
         })
 
         setTimeout(() => {
-            expect(mockRouter.push).toHaveBeenCalled()
+            expect( store.dispatch ).toHaveBeenCalledWith("journal/deleteEntry", "-NOclo-5q93c5opgJjKw")
+            expect( mockRouter.push ).toHaveBeenCalled()
             done()
-        }, 1)
+        }, 1 )
     });
 
 
